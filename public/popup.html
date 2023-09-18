@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Quick Acc</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+
+<body>
+  <div class="app">
+
+    <p class="title">Quick Acc</p>
+
+    <div class="serv-con">
+      <p class="simple-p">服务:</p>
+      <div class="custom-radio-con">
+        <div class="custom-radio">
+          <input type="radio" class="serv" id="serv1" name="choice" value="/" checked>
+          <label for="serv1">首页</label>
+        </div>
+        <div class="custom-radio">
+          <input type="radio" class="serv" id="serv2" name="choice" value=":1111/">
+          <label for="serv2">Shark</label>
+        </div>
+        <div class="custom-radio">
+          <input type="radio" class="serv" id="serv3" name="choice" value=":8089/cluster/apps/RUNNING">
+          <label for="serv3">Yarn(Running)</label>
+        </div>
+        <div class="custom-radio">
+          <input type="radio" class="serv" id="serv4" name="choice" value=":8089/">
+          <label for="serv4">Yarn</label>
+        </div>
+        <div class="custom-radio">
+          <input type="radio" class="serv" id="serv5" name="choice" value=":8848/nacos">
+          <label for="serv5">Nacos</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="ip-con">
+      <p class="simple-p">环境:</p>
+      <input type="text" id="inputField" class="custom-input">
+    </div>
+
+    <div class="creator-btn-container">
+      <button id="create-new-tab-btn" class="button large-btn">GO</button>
+    </div>
+
+    <!-- <hr class="divider" /> -->
+  </div>
+  <!-- app container end -->
+
+
+  <div class="footer-container">
+    <div class="footer">
+      <a id="shortcutBtnForExtension" class="dynamic-link">设置激活快捷键</a>
+    </div>
+    <p class="footer">1.0.0</p>
+    <div class="footer">
+      <p>Copyright © 2023- lcok</p>
+      <a id="sourceCodeBtn" class="dynamic-link" style="margin-left: 10px;">&nbsp;Source Code&nbsp;</a>
+    </div>
+  </div>
+
+
+  <script src="popup.js"></script>
+
+</body>
+
+</html>
