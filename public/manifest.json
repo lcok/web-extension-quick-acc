@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Quick Acc",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "用于多环境多服务的快捷访问",
   "icons": {
     "16": "icons/icon_16.png",

@@ -17,7 +17,7 @@ import './popup.css';
 
 
 	//  选择的服务
-	let service = "/";
+	let service = "/#/overview/";
 
 	const serviceCheckboxes = document.querySelectorAll('.serv');
 	serviceCheckboxes.forEach(function (checkbox) {
