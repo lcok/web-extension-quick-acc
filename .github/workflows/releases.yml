@@ -7,6 +7,8 @@ on:
 
 jobs:
   build-and-release:
+    permissions:
+      contents: write
     runs-on: ubuntu-latest
     steps:
       - name: 🚀 Checkout repository
@@ -52,11 +54,9 @@ jobs:
           EXTENSION_VERSION: ${{ env.EXTENSION_VERSION }}
 
       # 创建 GitHub Release
-      # 使用 softprops/action-gh-release@v1 action 来创建 Release
       - name: 🔖 Create GitHub Release
-        # 添加一个 ID，以便在 description 中引用 Action 的输出（如 previous_tag）
         id: create_release
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         with:
           # 指定要上传到 Release 的资产文件
           files: ${{ env.EXTENSION_VERSION }}.zip
