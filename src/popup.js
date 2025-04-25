@@ -13,7 +13,7 @@ import './popup.css';
 
 
 	const createTabBtn = document.getElementById('create-new-tab-btn');
-	createTabBtn.addEventListener('click', submitNewTab);
+	createTabBtn.addEventListener('click', serviceHandler);
 
 
 	//  选择的服务
@@ -56,22 +56,67 @@ import './popup.css';
 	function handleEnterKey(event) {
 		// 回车
 		if (event.keyCode === 13) {
-			submitNewTab();
+			serviceHandler();
 		}
 	}
 
 
-	// 计算和打开新标签
-	function submitNewTab() {
+	function serviceHandler() {
 		if (inputValue.trim() === '') {
 			console.log('没有输入')
 			return;
 		}
+		if (service.startsWith("special")){
+			handleSpecialService();
+		} else {
+			handleNormalService();
+		}
+	}
+
+	// 计算和打开新标签
+	function handleNormalService(){
 		const fIp = processIp(inputValue);
 		const finalUrl = "http://" + fIp + service;
 		openNewTabl(finalUrl);
 	}
 
+	// 特殊service处理
+	function handleSpecialService(){
+		switch (service){
+			case "special_replace_host":
+				specialReplaceActiveTabHost();
+				break
+			default:
+				console.log("unknown service: "+ service);
+		}
+	}
+
+	// 替换当前tab的url中的host（不包含port）
+	function specialReplaceActiveTabHost(){
+		// 待设置的ip
+		const fIp = processIp(inputValue);
+		// 使用 chrome.tabs.query 获取当前活动标签页
+		chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+		  if (tabs && tabs[0]) {
+			const currentTab = tabs[0];
+			const currentUrl = currentTab.url;
+			// 检查当前 URL 是否是可修改的页面 (避免 chrome://, about:, etc.)
+			// 并且是 http 或 https 协议
+			if (currentUrl && (currentUrl.startsWith('http://') || currentUrl.startsWith('https://'))) {
+			  try {
+				const urlObject = new URL(currentUrl);
+				urlObject.hostname = fIp;
+				const newUrl = urlObject.toString();
+				chrome.tabs.update(currentTab.id, { url: newUrl });
+			  } catch (e) {
+				console.error("Failed to parse or modify URL:", e);
+			  }
+			} else {
+			  console.warn("Cannot change URL for this tab type:", currentUrl);
+			}
+		  }
+		});
+	}
 
 	// 补全ip
 	function processIp(inputString) {
