@@ -35,8 +35,8 @@ jobs:
           # 使用 Node.js 读取 JSON 文件并打印版本号
           VERSION=$(node -p "require('./public/manifest.json').version")
           # 将版本号设置到 GITHUB_ENV 中
-          echo "EXTENSION_VERSION=$VERSION" >> $GITHUB_ENV
-          echo "🎉 Found extension version: $VERSION"
+          echo "EXTENSION_VERSION=v$VERSION" >> $GITHUB_ENV
+          echo "🎉 Found extension version: v$VERSION"
 
       # 打包 build 目录为 zip 文件
       # 使用 zip 命令将 build 目录打包，文件名使用版本号
@@ -60,18 +60,14 @@ jobs:
         with:
           # 指定要上传到 Release 的资产文件
           files: ${{ env.EXTENSION_VERSION }}.zip
-          # 指定 Release 的 Git Tag 名称，通常是版本号，前面加个 v 是惯例
-          tag_name: v${{ env.EXTENSION_VERSION }}
-          # 指定 Release 的名称，增加一些表情符号增加活力
-          name: ✨ v${{ env.EXTENSION_VERSION }} ✨
+          tag_name: ${{ env.EXTENSION_VERSION }}
+          name: ✨ ${{ env.EXTENSION_VERSION }} ✨
           # 立即发布，且不是预发布版本
           draft: false
           prerelease: false
-          # 自动查找上一个 Release 的 Tag，这个信息可以在 description 中使用
-          find_previous_tag: true
           # 指定 Release 的描述信息，使用 Markdown 格式，并利用变量和上下文信息
           body: |
-            🚀 **Release v${{ env.EXTENSION_VERSION }}**
+            🚀 **Release ${{ env.EXTENSION_VERSION }}**
           # 自动生成 Release Notes
           generate_release_notes: true
         env:
